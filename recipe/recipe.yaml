@@ -44,6 +44,7 @@ requirements:
     - ninja
   host:
     - dlpack
+    - pybind11
     - python
     - cmake
     - pip
