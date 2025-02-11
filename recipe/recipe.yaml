@@ -23,7 +23,7 @@ build:
     if [[ $(uname) == "Linux" ]]; then
       export CXXFLAGS="$CXXFLAGS -Wno-dangling-reference"
     fi
-    cmake .. -G Ninja
+    cmake ${CMAKE_ARGS} .. -G Ninja
     ninja
     cd ../python
     ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
