@@ -13,7 +13,7 @@ source:
     - 001-fix-macos-no-triton.patch
 
 build:
-  number: 0
+  number: 1
   skip:
     - win # xgrammar claims windows support but it's very broken
   script: |
@@ -30,6 +30,7 @@ build:
 
 requirements:
   build:
+    # TODO: cross-compiling for Linux aarch64 is broken but works for m1
     - if: build_platform != target_platform
       then:
         - python
