@@ -13,7 +13,7 @@ source:
     - 001-fix-macos-no-triton.patch
 
 build:
-  number: 0
+  number: 1
   skip:
     - win # xgrammar claims windows support but it's very broken
   script: |
@@ -23,27 +23,29 @@ build:
     if [[ $(uname) == "Linux" ]]; then
       export CXXFLAGS="$CXXFLAGS -Wno-dangling-reference"
     fi
-    cmake .. -G Ninja
+    cmake ${CMAKE_ARGS} .. -G Ninja
     ninja
     cd ../python
     ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   build:
+    # TODO: cross-compiling for Linux aarch64 is broken but works for m1
     - if: build_platform != target_platform
       then:
         - python
         - cross-python_${{ target_platform }}
+        - pybind11
+        - setuptools
+        - dlpack
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
     - ${{ stdlib("c") }}
-    - dlpack
-    - pybind11
-    - python 
     - cmake
     - ninja
   host:
     - dlpack
+    - pybind11
     - python
     - cmake
     - pip
