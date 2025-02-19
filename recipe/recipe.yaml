@@ -54,6 +54,7 @@ requirements:
     - if: linux
       then:
         - triton
+    - pybind11
     - pydantic
     - python 
     - sentencepiece
